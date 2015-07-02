@@ -17,14 +17,17 @@ numVec[seq(1,length(numVec),5)]
 
 # 3. Show how to take a trio of input numbers a, b, and c and implement the quadratic equation.
 
+# solving x for the expression ax^2 + bx + c = 0
 a <- 2
 b <- 7
 c <- 5
 d <- sqrt((b^2 - 4*a*c))
 
-x <- (-b + d)/2*a
-# or
-x1 <- (-b - d)/2*a
+# solvin x = (b+d)/2a
+x <- (b + d)/2*a
+
+# solving x1 = x = (b-d)/2a
+x1 <- (b - d)/2*a
 
 print(x)
 print(x1)
