@@ -1,0 +1,53 @@
+---
+title: "Week 2 Assignment using R Markdown"
+author: "Srini Illapani"
+date: "July 12, 2015"
+output: html_document
+---
+
+This is an R Markdown document. 
+
+The task here is to write a custom variation of the choose() function, that does not use factorial or choose functions from R library.
+
+        R choose Function
+
+choose() function computes the combination nCr.
+```
+choose(n,r)
+
+n: n elements
+r: r subset elements
+...
+nCr = n!/(r! * (n-r)!) 
+> choose(5,2)
+[1] 10
+```
+
+      Here is the custom code to compute 5c3 without using libarary functions
+
+```
+fact <- function(x){
+  y <- 1
+  for(i in 1:x){
+    y <- y*((1:x)[i])
+  }
+print(y)
+}
+
+a <- 5
+b <- 3
+
+sol <- fact(a)/(fact(a-b) * fact(b))
+```
+
+sol
+[1] 10
+
+    The answer is 10
+
+
+
+
+
+ 
+ 
