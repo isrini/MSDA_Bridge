@@ -27,5 +27,20 @@ a.tailnum = b.tailnum and a.dep_delay >60
 GROUP BY b.year
 ORDER BY count(*) desc
 
+-- 3. Ask (and if possible answer) a third question that also requires joining information from two or more tables in the flights database, and/or assumes that additional information 
+-- can be collected in advance of answering your question.
+
+-- Question:
+-- Which carrier had least number of flights from Newark airport in the year 2013?
+-- Answer: Skywest Airlines inc
+
+Select b.name, count(*) FROM
+flights a, airlines b
+WHERE
+a.carrier = b.carrier AND
+a.origin = 'EWR' AND
+a.year = 2013
+GROUP BY b.name
+ORDER BY count(*) ASC
 
 
