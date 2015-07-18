@@ -4,7 +4,7 @@
 -- 1. Videos table. Create one table to keep track of the videos. This table should include a unique ID, the title of the video, the length in minutes, and the URL.
 -- Populate the table with at least three related videos from YouTube or other publicly available resources.
 
-DROP TABLE IF EXISTS si_videos;
+DROP TABLE IF EXISTS si_videos CASCADE;
 
 CREATE TABLE si_videos
 (
