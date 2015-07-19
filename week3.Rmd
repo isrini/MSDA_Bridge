@@ -1,11 +1,12 @@
 ---
 title: "Week3 Assignment for R"
-author: "Srini"
+author: "Srini Illapani"
 date: "July 18, 2015"
 output: html_document
 ---
   
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents.
+For the results of this solution, go to the RPubs site here: http://rpubs.com/isrini/week3
 
 
 Referencing the file from the source
