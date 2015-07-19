@@ -1,0 +1,66 @@
+---
+title: "Week3 Assignment for R"
+author: "Srini"
+date: "July 18, 2015"
+output: html_document
+---
+  
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents.
+
+
+Referencing the file from the source
+```{r}
+file <- "MSDA_Bridge/agaricus-lepiota.txt"
+```
+
+
+Reading the file contents into a variable called mushrooms
+```{r}
+mushrooms <- read.csv(file, header = FALSE, sep = ",", stringsAsFactors = FALSE)
+```
+
+Adding names to the first four columns
+```{r}
+df = data.frame(mushrooms)
+colnames(df) <- c("classes", "cap_shape", "cap_surface", "cap_color")
+```
+
+Updating the rows for each of the four columns with the appropriate name based on analysis performed on the description file
+```{r}
+df[df$classes=="e", "classes"] <- "edible"
+df[df$classes=="p", "classes"] <- "poisonous"
+
+df[df$cap_shape=="b", "cap_shape"] <- "bell"
+df[df$cap_shape=="c", "cap_shape"] <- "conical"
+df[df$cap_shape=="x", "cap_shape"] <- "convex"
+df[df$cap_shape=="f", "cap_shape"] <- "flat"
+df[df$cap_shape=="k", "cap_shape"] <- "knobbed"
+df[df$cap_shape=="s", "cap_shape"] <- "sunken"
+
+df[df$cap_surface=="f", "cap_surface"] <- "fibrous"
+df[df$cap_surface=="g", "cap_surface"] <- "grooves"
+df[df$cap_surface=="y", "cap_surface"] <- "scaly"
+df[df$cap_surface=="s", "cap_surface"] <- "smooth"
+
+df[df$cap_color=="n", "cap_color"] <- "brown"
+df[df$cap_color=="b", "cap_color"] <- "buff"
+df[df$cap_color=="c", "cap_color"] <- "cinnamon"
+df[df$cap_color=="g", "cap_color"] <- "gray"
+df[df$cap_color=="r", "cap_color"] <- "green"
+df[df$cap_color=="p", "cap_color"] <- "pink"
+df[df$cap_color=="u", "cap_color"] <- "purple"
+df[df$cap_color=="e", "cap_color"] <- "red"
+df[df$cap_color=="w", "cap_color"] <- "white"
+df[df$cap_color=="y", "cap_color"] <- "yellow"
+```
+
+Calling the first four updated and renamed columns only
+```{r}
+df <- df[, 1:4]
+```
+
+And finally, View the formatted data in a tabular form
+```{r}
+df
+```
+
