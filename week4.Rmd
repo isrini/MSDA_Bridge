@@ -1,0 +1,122 @@
+
+###  Week 4 Assignment using R Markdown
+#### by Srini Illapani
+#####date: "July 24, 2015"
+
+
+> Assignment:
+
+Exploratory Data Analysis in R. Choose an interesting dataset and use R graphics to describe the data. You may use base R graphics,
+or a graphics package of your choice. You should include at least one example of each of the following:
+
+1. histogram
+2. boxplot
+3. scatterplot
+
+Question: Do the graphics provide insight into any relationships in the data?
+
+####Solution:
+
+1. Load the Titanic dataset, from the source - http://vincentarelbundock.github.io/Rdatasets/. 
+
+  File source:
+  
+```{r}
+file <- "https://raw.github.com/vincentarelbundock/Rdatasets/master/csv/datasets/Titanic.csv"
+
+# reading data from the file
+titanic <- read.table(file, header = TRUE, sep = ",", stringsAsFactors = FALSE)
+titanic = data.frame(titanic)
+```
+
+  Renaming the column names
+
+```{r}
+colnames(titanic) <- c("#", "cabin_class", "gender", "age", "survived", "affected")
+head(titanic)
+```
+
+
+  Identify which variables in the diamonds dataset are numeric, and which variables are categorical
+  
+```{r}
+str(titanic)
+```
+
+  Convert the character data types to a numeric for comparison and plotting. The columns converted are: cabin_class, gender, survived and age.
+
+```{r}
+titanic[titanic$cabin_class == "Crew", "cabin_class"] <- 0
+titanic[titanic$cabin_class == "1st", "cabin_class"] <- 1
+titanic[titanic$cabin_class == "2nd", "cabin_class"] <- 2
+titanic[titanic$cabin_class == "3rd", "cabin_class"] <- 3
+
+titanic[titanic$gender == "Male", "gender"] <- 1
+titanic[titanic$gender == "Female", "gender"] <- 2
+
+titanic[titanic$survived == "Yes", "survived"] <- 1
+titanic[titanic$survived == "No", "survived"] <- 0
+
+titanic[titanic$age == "Adult", "age"] <- 1
+titanic[titanic$age == "Child", "age"] <- 0
+
+str(titanic)
+```
+
+Generate Descriptive Statistics:
+
+2. Generate summary level descriptive statistics: Showing the mean, median, min, and max for each of the applicable variables in the Titanic dataset.
+
+
+```{r}
+summary(titanic)
+```
+
+3. Determine the frequency for each of the variables. Run the table() function against a single categorical variable
+
+
+```{r]}
+table(titanic$gender)
+table(titanic$cabin_class)
+```
+
+4. Determine the frequency for each of the cabin class and number of people affected (deaths)
+
+```{r}
+# Run the table() function against two categorical variables.
+table(titanic$cabin_class, titanic$affected)
+```
+
+Generating R Graphics
+
+5. Create a graph for a single numeric variable.
+
+Histogram and Boxplot, in base R.
+
+```{r}
+boxplot(titanic$affected)
+hist(titanic$affected)
+```
+
+Lets see the same single numeric variable, in ggplot2.
+
+```{r}
+require(ggplot2)
+qplot(affected, data=titanic)
+```
+
+6. Create a scatterplot for gender and number of people affected (deaths)
+
+Plot, in base R:
+
+```{r}
+plot(titanic$gender, titanic$affected)
+```
+
+Look at the same scatterplot in ggplot2.  
+
+```{r}
+qplot(affected, cabin_class, data=titanic)
+```
+
+#### The abouve two graphs show that number who died went up along with the cabin class increase. That is more crew met with death compared to the passengers in each of the other higher class. Also more males died than females.
