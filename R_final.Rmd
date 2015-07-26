@@ -1,0 +1,83 @@
+---
+title: "R Final Project"
+author: "Srini Illapani"
+date: "July 26, 2015"
+output: ioslides_presentation
+---
+
+***
+Select - UniqueCarrier and DepDelay columns and filter for delays over 60 minutes
+```{r echo=FALSE}
+suppressMessages(require(hflights))
+
+suppressMessages(library(dplyr))
+
+flights <- tbl_df(hflights)
+filter(select(flights, UniqueCarrier, DepDelay), DepDelay > 60)
+```
+***
+Add new columns with transmutate(), create new variables that are functions of existing variables
+
+```{r echo=FALSE}
+transmute(flights, Dep_date = as.Date(paste(flights$Month,flights$DayofMonth,flights$Year, sep="/", collapse = NULL),"%m/%d/%Y"), 
+          Time_makeup = ArrDelay - DepDelay, Air_speed = Distance / AirTime * 60)
+```
+
+
+***
+Group - for each destination, show the number of cancelled and not cancelled flights
+```{r echo=FALSE}
+flights %>%
+  group_by(Dest) %>%
+  select(Cancelled) %>%
+  table() %>%
+  head()
+```
+
+***
+Summarise - For each day of the week, count the total number of flights from the two Houston airports
+
+```{r echo=FALSE}
+flights %>%
+  group_by(Origin, DayOfWeek) %>%
+  summarise(flight_count = n()) %>%
+  arrange(desc(flight_count))
+```
+
+***
+Advanced grouping and filtering. For each carrier, calculate which two days of the year they had their longest departure delays
+
+```{r echo=FALSE}
+flights %>%
+  group_by(UniqueCarrier) %>%
+  select(Month, DayofMonth, DepDelay) %>%
+  filter(min_rank(desc(DepDelay)) <= 2) %>%
+  arrange(UniqueCarrier, desc(DepDelay))
+```
+
+
+***
+Using ggplot package, here is a bar chart showing the carriers and the number of flights each of them operated
+```{r echo=FALSE}
+require(ggplot2)
+m <- ggplot(flights, aes(x=UniqueCarrier))
+m + stat_bin()
+```
+
+***
+More complex Chart
+```{r echo=FALSE}
+m <- ggplot(flights, aes(x=UniqueCarrier))
+m + geom_histogram(aes(fill = ..count..)) +
+  scale_fill_gradient("Count", low = "green", high = "red")
+```
+
+***
+Histogram
+```{r echo=FALSE}
+hist_cut <- ggplot(flights, aes(x=UniqueCarrier, fill=Origin))
+hist_cut + geom_bar()
+```
+
+#![picture](C:\Users\sillapani\Documents\R\images\ty.jpg)
+
