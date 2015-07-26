@@ -8,9 +8,8 @@ output: ioslides_presentation
 ***
 Select - UniqueCarrier and DepDelay columns and filter for delays over 60 minutes
 ```{r echo=FALSE}
-suppressMessages(require(hflights))
-
-suppressMessages(library(dplyr))
+require(hflights)
+library(dplyr)
 
 flights <- tbl_df(hflights)
 filter(select(flights, UniqueCarrier, DepDelay), DepDelay > 60)
